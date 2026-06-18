@@ -1,5 +1,3 @@
-import 'package:cli/cli.dart' as cli;
-
 void main(List<String> arguments) {
-  print('Hello world: ${cli.calculate()}!');
+  print('Hello World!'); // my first clean "Hello world!" in Dart
 }

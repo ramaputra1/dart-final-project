@@ -1,0 +1,13 @@
+name: crypto_pkg
+description: Crypto data package using CoinGecko API.
+version: 1.0.0
+
+environment:
+  sdk: ^3.12.2
+
+dependencies:
+  http: ^1.4.0
+
+dev_dependencies:
+  lints: ^6.0.0
+  test: ^1.25.6

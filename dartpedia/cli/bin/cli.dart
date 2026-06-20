@@ -15,6 +15,7 @@ void main(List<String> arguments) {
     },
   )
     ..addCommand(HelpCommand())
-    ..addCommand(TrendingCommand());
+    ..addCommand(TrendingCommand())
+    ..addCommand(CoinCommand());
   commandRunner.run(arguments);
 }

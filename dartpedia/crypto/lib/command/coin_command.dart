@@ -17,11 +17,12 @@ class CoinCommand extends Command {
 
   @override
   FutureOr<Object?> run(ArgResults args) async {
-    final coinId = args.commandArg;
-    if (coinId == null || coinId.isEmpty) {
+    final rawArg = args.commandArg;
+    if (rawArg == null || rawArg.isEmpty) {
       return 'Usage: coin <coin-id>\nExample: coin bitcoin';
     }
 
+    final coinId = rawArg.trim().toLowerCase().replaceAll(' ', '-');
     final service = CryptoService(CoinGeckoClient());
     final coin = await service.getCoinDetail(coinId);
 

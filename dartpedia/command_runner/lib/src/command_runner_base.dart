@@ -108,15 +108,11 @@ class CommandRunner {
           i++;
         }
       } else {
-        // exception if more than one positional argument provided
         if (results.commandArg != null && results.commandArg!.isNotEmpty) {
-          throw ArgumentException(
-            'Commands can only have up to one argument.',
-            results.command!.name,
-            input[i],
-          );
+          results.commandArg = '${results.commandArg} ${input[i]}';
+        } else {
+          results.commandArg = input[i];
         }
-        results.commandArg = input[i];
       }
       i++;
     }

@@ -1,4 +1,5 @@
 import 'package:command_runner/command_runner.dart';
+import 'package:crypto_pkg/crypto.dart';
 
 const version = '0.0.1';
 
@@ -12,6 +13,8 @@ void main(List<String> arguments) {
         print(error);
       }
     },
-  )..addCommand(HelpCommand());
+  )
+    ..addCommand(HelpCommand())
+    ..addCommand(TrendingCommand());
   commandRunner.run(arguments);
 }

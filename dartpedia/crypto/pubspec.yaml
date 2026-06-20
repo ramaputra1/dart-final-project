@@ -7,6 +7,8 @@ environment:
 
 dependencies:
   http: ^1.4.0
+  command_runner:
+    path: ../command_runner
 
 dev_dependencies:
   lints: ^6.0.0

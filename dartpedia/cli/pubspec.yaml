@@ -13,6 +13,8 @@ dependencies:
   http: ^1.4.0
   command_runner:
     path: ../command_runner # Points to your local command_runner package
+  crypto_pkg:
+    path: ../crypto
 
 dev_dependencies:
   lints: ^6.0.0

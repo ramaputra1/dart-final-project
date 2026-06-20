@@ -16,4 +16,17 @@ class CoinGeckoClient {
 
     return jsonDecode(response.body) as Map<String, dynamic>;
   }
+
+  Future<Map<String, dynamic>> getCoinDetail(String id) async {
+    final url = Uri.parse('$_baseUrl/coins/$id');
+    final response = await http.get(url);
+
+    if (response.statusCode != 200) {
+      throw Exception(
+        'Failed to fetch coin detail for "$id": ${response.statusCode}',
+      );
+    }
+
+    return jsonDecode(response.body) as Map<String, dynamic>;
+  }
 }

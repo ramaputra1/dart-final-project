@@ -28,21 +28,30 @@ void main(List<String> arguments) {
 }
 //Learn: List manipulation, null checks, and string interpolation.
 //List<String>? arguments means that the arguments list itself can be null
-void searchWikipedia(List<String>? arguments) {
+void searchWikipedia(List<String>? arguments) async{  //This is essential because it will call getWikipediaArticle, which is an async function itself and will need to await its result.
   final String articleTitle;
   //If the user did not pass in arguments, request an article title.
   if (arguments == null || arguments.isEmpty) {
     print('Please provide an article title.');
+    // Read input without the `?? ''` fallback.
+    final inputFromStdin = stdin.readLineSync();
+    if (inputFromStdin == null || inputFromStdin.isEmpty) {
+      print('No article title provided. Exiting.');
+      return; // Exit the function if there's no valid input.
+    }
+    articleTitle = inputFromStdin;
     //Await input and provide a default empty string if the input is null.
-    articleTitle = stdin.readLineSync() ?? '';
+    //articleTitle = stdin.readLineSync() ?? '';
   } else {
     //Otherwise, join the arguments into a single string.
     articleTitle = arguments.join(' ');
   }
 
-  print('Looking up articles about "articleTitle". Please wait.');
-  print('Here ya go!');
-  print('Pretend this is an article about "$articleTitle")');
+
+  print('Looking up articles about "$articleTitle". Please wait.');
+  // Call the API and await the result.
+  var articleContent = await getWikipediaArticle(articleTitle);
+  print(articleContent); // Print the full article response (raw JSON for now)
 }
 
 void printUsage(){  //printUsage Function: To make the output more user-friendly, create a separate function to display usage information. 
@@ -98,4 +107,8 @@ Use the top-level get function from package:http to make an HTTP GET request to 
 The await keyword pauses the execution of getWikipediaArticle until the get call completes and returns an http.Response object.
 After the request completes, check the response.statusCode to ensure the request was successful (a status code of 200 means OK). 
 If successful, return the response.body, which contains the fetched data (in this case, raw JSON). If the request fails, return an informative error message.
+*/
+/*
+await getWikipediaArticle(articleTitle): Because getWikipediaArticle is an async function, you need to await its result. This pauses the searchWikipedia function until the Future<String> returned by getWikipediaArticle resolves into a String containing the article's contents.
+print(articleContent): Prints the fetched article summary as a raw JSON string to the console.
 */

@@ -51,4 +51,9 @@ In a code editor, open the bin/cli.dart file.
 The bin/ directory is where your executable code lives. cli.dart is the entry point of your application.
 Inside, you'll see the main function. Every Dart program starts executing from its main function.
 
+Run the main function by using dart run
+
 2. Add interactivity to your app
+   - Get to know Dart syntax.
+
+   - Learn how to read user input, print usage information, and create a basic command-line interaction.

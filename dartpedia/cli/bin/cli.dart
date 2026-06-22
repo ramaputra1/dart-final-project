@@ -1,5 +1,12 @@
 //dart:io is a core library in the Dart SDK, and provides APIs to deal with files, directories, sockets, and HTTP clients and servers, and more.
 import 'dart:io';
+//After add the http package in pubspec.yaml, import it here.
+/*
+This line imports the http package and gives it the alias http. 
+After you do this, you can refer to classes and functions within the http package using http. (for example, http.Client, http.get). 
+The as http part is a standard convention to avoid naming conflicts if another imported library also has a similarly named class or function.
+*/
+import 'package:http/http.dart' as http;
 
 //The value of a const variable can never be changed after it's been set.
 const version = '0.0.1'; 
@@ -44,6 +51,23 @@ void printUsage(){  //printUsage Function: To make the output more user-friendly
   );
 }
 
+//It handles fetching data from an external API. This function will be async because network requests are asynchronous operations.
+Future<String> getWikipediaArticle(String articleTitle) async {
+//The Uri represents the endpoint of the Wikipedia API that you'll be calling to get an article summary.
+  final url = Uri.https(
+    'en.wikipedia.org', //Wikipedia API domain
+    '/api/reat_v1/page/summary/$articleTitle', //API path for article summary
+  );
+  final response = await http.get(url);  //Make the HTTP request
+
+  if (response.statusCode == 200) {
+    return response.body;  //Return the response body if successful
+  } 
+  //Return an error message if the request failed
+  return 'Error: Failed to fetch article "$articleTitle". Status  code: ${response.statusCode}';
+}
+
+
 /*
 Understand the if/else structure and variables:
 arguments.isEmpty checks if no command-line arguments were provided.
@@ -62,4 +86,16 @@ arguments.length > 1 ? ... : null; is a conditional (ternary) operator. It ensur
 stdin.readLineSync() ?? '' reads the input from the user. While stdin.readLineSync() can return null, the null-coalescing operator (??) is used to provide an empty string ('') as a fallback if the input is null. This is a concise way to ensure that the variable is a non-null string.
 arguments.join(' ') concatenates all elements of the arguments list into a single string, using a space as the separator. For example, ['Dart', 'Programming'] becomes "Dart Programming". This is crucial for treating multi-word command-line inputs as a single search phrase.
 Dart static analysis can detect that articleTitle is guaranteed to be initialized when the print statement is executed. No matter which path is taken through this function body, the variable is non-nullable.
+*/
+
+/*
+The Future<String> return type indicates that this function will eventually produce a String result, but not immediately, because it's an asynchronous operation.
+The async keyword marks the function as asynchronous, allowing you to use await inside it.
+*/
+
+/*
+Use the top-level get function from package:http to make an HTTP GET request to the URL you just constructed. 
+The await keyword pauses the execution of getWikipediaArticle until the get call completes and returns an http.Response object.
+After the request completes, check the response.statusCode to ensure the request was successful (a status code of 200 means OK). 
+If successful, return the response.body, which contains the fetched data (in this case, raw JSON). If the request fails, return an informative error message.
 */

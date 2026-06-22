@@ -57,3 +57,9 @@ Run the main function by using dart run
    - Get to know Dart syntax.
 
    - Learn how to read user input, print usage information, and create a basic command-line interaction.
+
+3. Write Asynchronous Code
+   - Explore asynchronous programming in Dart, allowing your applications to perform multiple tasks concurrently.
+   - Learn how to fetch data from the internet using the http package, to retrieve an article summary from Wikipedia.
+
+   - Note:Open the dartpedia/cli/pubspec.yaml file within your project. This file is called the pubspec, and it manages your Dart project's metadata, dependencies (like the http package), and assets.

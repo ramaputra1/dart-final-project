@@ -8,8 +8,10 @@ void main(List<String> arguments) {
     //The $version syntax is called string interpolation. 
     //It lets you embed the value of the variable directly into a string by prefixing the variable name with a $ sign.
     print('Dartpedia CLI version $version');
-  } else if (arguments.first == 'search') {
-    print('Search command recognized!');
+  } else if (arguments.first == 'search') {  //dart bin/cli.dart search <ARTICLE-TITLE>
+    //Use arguments.sublist(1) to get all arguments starting from the second one. If no arguments are provided after search, pass null to searchWikipedia.
+    final inputArgs = arguments.length > 1 ? arguments.sublist(1) : null;
+    searchWikipedia(inputArgs);
   } else{
     printUsage();  // Catch-all for any unrecognized command.
   }
@@ -32,4 +34,10 @@ arguments.isEmpty checks if no command-line arguments were provided.
 arguments.first accesses the very first argument, which you're using as our command.
 version is declared as a const. This means its value is known at compile time, and you can't change it during runtime.
 arguments is a regular (non-constant) variable because its content can change during runtime based on user input.
+*/
+
+/*
+final variables can only be set once and are used when you never intend to change the variable again in the code.
+arguments.sublist(1) creates a new list containing all elements of the arguments list after the first element (which was search).
+arguments.length > 1 ? ... : null; is a conditional (ternary) operator. It ensures that if no arguments are provided after the search command, inputArgs becomes null, matching the sample code's behavior for searchWikipedia's arguments parameter of List<String>?.
 */

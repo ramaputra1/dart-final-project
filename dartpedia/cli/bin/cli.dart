@@ -14,6 +14,11 @@ void main(List<String> arguments) {
     printUsage();  // Catch-all for any unrecognized command.
   }
 }
+//Learn: List manipulation, null checks, and string interpolation.
+//List<String>? arguments means that the arguments list itself can be null
+void searchWikipedia(List<String>? arguments) {
+  print('searchingWikipedia received arguments: $arguments');
+}
 
 void printUsage(){  //printUsage Function: To make the output more user-friendly, create a separate function to display usage information. 
   print(  //search is the command that will eventually search from Wikipedia.

@@ -1,3 +1,6 @@
+//dart:io is a core library in the Dart SDK, and provides APIs to deal with files, directories, sockets, and HTTP clients and servers, and more.
+import 'dart:io';
+
 //The value of a const variable can never be changed after it's been set.
 const version = '0.0.1'; 
 
@@ -19,7 +22,18 @@ void main(List<String> arguments) {
 //Learn: List manipulation, null checks, and string interpolation.
 //List<String>? arguments means that the arguments list itself can be null
 void searchWikipedia(List<String>? arguments) {
-  print('searchingWikipedia received arguments: $arguments');
+  final String articleTitle;
+  //If the user did not pass in arguments, request an article title.
+  if (arguments == null || arguments.isEmpty) {
+    print('Please provide an article title.');
+    //Await input and provide a default empty string if the input is null.
+    articleTitle = stdin.readLineSync() ?? '';
+  } else {
+    //Otherwise, join the arguments into a single string.
+    articleTitle = arguments.join(' ');
+  }
+
+  print('Current article title: $articleTitle');
 }
 
 void printUsage(){  //printUsage Function: To make the output more user-friendly, create a separate function to display usage information. 
@@ -40,4 +54,10 @@ arguments is a regular (non-constant) variable because its content can change du
 final variables can only be set once and are used when you never intend to change the variable again in the code.
 arguments.sublist(1) creates a new list containing all elements of the arguments list after the first element (which was search).
 arguments.length > 1 ? ... : null; is a conditional (ternary) operator. It ensures that if no arguments are provided after the search command, inputArgs becomes null, matching the sample code's behavior for searchWikipedia's arguments parameter of List<String>?.
+*/
+
+/*
+stdin.readLineSync() ?? '' reads the input from the user. While stdin.readLineSync() can return null, the null-coalescing operator (??) is used to provide an empty string ('') as a fallback if the input is null. This is a concise way to ensure that the variable is a non-null string.
+arguments.join(' ') concatenates all elements of the arguments list into a single string, using a space as the separator. For example, ['Dart', 'Programming'] becomes "Dart Programming". This is crucial for treating multi-word command-line inputs as a single search phrase.
+Dart static analysis can detect that articleTitle is guaranteed to be initialized when the print statement is executed. No matter which path is taken through this function body, the variable is non-nullable.
 */

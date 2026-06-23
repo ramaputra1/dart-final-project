@@ -12,15 +12,24 @@ For Phase 1, I followed the official Dart tutorials from its Documentation (On t
 2. Add Interactivity to Your App
 3. Write Asynchronous Code
 
-# Phase 2 — Add Features (AI Allowed)
+---
 
-Building on the base CLI from Phase 1, I extended **Dartpedia** with new commands, flag parsing, JSON parsing, and file I/O. The goal was to make the program genuinely useful — instead of dumping raw JSON at the user, it now formats output, supports search, and can save articles to disk.
+### Phase 2 - Add Features (AI Allowed)
+
+Building on the base CLI from Phase 1, I extended **Dartpedia** with new commands, flag parsing, JSON parsing, and file I/O. The goal was to make the program genuinely useful — instead of dumping raw JSON at the user, it now formats output, supports search, and can save articles to disk. (I did it in bin/cli.dart)
+
+What I added:
+
+1. JSON Parsing with `dart:convert`
+2. The `WikiArticle` Class
+3. Flag Parsing — `--brief` and `--save`
+4. Saving Articles to a File with `dart:io`
+5. New `search` Command
+6. Multi-line Strings for `printUsage()`
 
 ---
 
-## What I Added
-
-### 1. JSON Parsing with `dart:convert`
+#### 1. JSON Parsing with `dart:convert`
 
 Phase 1 printed the raw JSON string from Wikipedia directly to the terminal. Phase 2 parses it into a real Dart object using `jsonDecode()` from `dart:convert`.
 
@@ -30,11 +39,11 @@ import 'dart:convert';
 final Map<String, dynamic> jsonData = jsonDecode(response.body);
 ```
 
-`jsonDecode()` converts a JSON string into a Dart `Map<String, dynamic>` (for JSON objects) or `List<dynamic>` (for JSON arrays). The `dynamic` type means the values can be anything — a String, int, another Map, a List — which reflects the flexible nature of JSON.
+**What I learned:** `jsonDecode()` converts a JSON string into a Dart `Map<String, dynamic>` (for JSON objects) or `List<dynamic>` (for JSON arrays). The `dynamic` type means the values can be anything — a String, int, another Map, a List — which reflects the flexible nature of JSON.
 
 ---
 
-### 2. The `WikiArticle` Class
+#### 2. The `WikiArticle` Class
 
 Instead of passing raw Maps around the program, I created a class to model a Wikipedia article. This is a pattern called a **data class** — its only job is to hold structured data.
 
@@ -73,7 +82,7 @@ String get briefSummary {
 
 ---
 
-### 3. Flag Parsing — `--brief` and `--save`
+#### 3. Flag Parsing — `--brief` and `--save`
 
 The `wikipedia` command now supports two optional flags:
 
@@ -106,7 +115,7 @@ for (final arg in arguments) {
 
 ---
 
-### 4. Saving Articles to a File with `dart:io`
+#### 4. Saving Articles to a File with `dart:io`
 
 Phase 1 already imported `dart:io` for `stdin`, but Phase 2 uses the `File` class to write output to disk:
 
@@ -133,7 +142,7 @@ Future<void> saveArticleToFile(WikiArticle article) async {
 
 ---
 
-### 5. New `search` Command
+#### 5. New `search` Command
 
 The new `search` command calls Wikipedia's **OpenSearch API** — a different endpoint from Phase 1 that accepts a loose query and returns up to 5 matching article titles.
 
@@ -167,7 +176,7 @@ final titles = List<String>.from(jsonData[1]); // Index 1 = the titles array
 
 - `jsonDecode()` can return either a `Map` or a `List` depending on the JSON structure. You have to know which to expect from the API.
 - `List<String>.from(dynamicList)` safely converts a `List<dynamic>` (what `jsonDecode` gives you) into a typed `List<String>`.
-- `Uri.https()` accepts query parameters as a `Map<String, String>` (the fourth argument). The `Uri` class URL-encodes them automatically, so spaces in the search query are handled correctly.
+- `Uri.https()` accepts query parameters as a `Map<String, String>`. The `Uri` class URL-encodes them automatically, so spaces in the search query are handled correctly.
 
 ```dart
 final url = Uri.https(
@@ -184,7 +193,7 @@ final url = Uri.https(
 
 ---
 
-### 6. Multi-line Strings for `printUsage()`
+#### 6. Multi-line Strings for `printUsage()`
 
 The help output became detailed enough that I switched to a triple-quoted string (`''' ... '''`), which spans multiple lines without needing `\n` everywhere:
 
@@ -203,9 +212,11 @@ Commands:
 }
 ```
 
+**What I learned:** Triple-quoted strings (`''' ... '''`) span multiple lines without needing `\n` everywhere. Useful for help text, templates, or any output where layout matters.
+
 ---
 
-## Full Command Reference
+#### Full Command Reference
 
 ```bash
 # Get a Wikipedia article summary (pretty-printed)
@@ -226,7 +237,7 @@ dart bin/cli.dart search <QUERY>
 
 ---
 
-## Key Dart Concepts Introduced in Phase 2
+#### Key Dart Concepts Introduced in Phase 2
 
 | Concept                            | Where It's Used                            |
 | ---------------------------------- | ------------------------------------------ |

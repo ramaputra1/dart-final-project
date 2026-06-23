@@ -6,28 +6,11 @@ Final Project for CS420 course BYUH that teach by Bro. Slade. Purpose to learn d
 
 ###Phase 1 - Dart Official Docs Tutorial
 
-For Phase 1, I followed the official Dart tutorials from its Documentation (On their official website) Dart Official Tutorial. I completed 1-6. That includes:
-
-Lessons
-Build your first app
-Add interactivity to your app
-Write asynchronous code
-Organize code with packages and libraries
-Define relationships with classes
-Handle errors gracefully
-Extend your app with enums and extensions
-Polish your CLI app
-Work with JSON data
-Test your app & code
-Fetch data from the internet
-Add logging for debugging and monitoring
+For Phase 1, I followed the official Dart tutorials from its Documentation (On their official website) Dart Official Tutorial. I completed 1-3. That includes:
 
 1. Build Your First App
 2. Add Interactivity to Your App
 3. Write Asynchronous Code
-4. Organize Code with Packages and Libraries
-5. Define Relationships with Classes
-6. Handle Errors Gracefully
 
 ###Note that highlighted from the doc
 
@@ -63,3 +46,10 @@ Run the main function by using dart run
    - Learn how to fetch data from the internet using the http package, to retrieve an article summary from Wikipedia.
 
    - Note:Open the dartpedia/cli/pubspec.yaml file within your project. This file is called the pubspec, and it manages your Dart project's metadata, dependencies (like the http package), and assets.
+
+   - The async keyword marks a function as asynchronous, allowing it to use await to wait for asynchronous operations.
+
+   - A Future is like a promise. It represents a value that isn't available yet but will be once an asynchronous operation (like a network request) finishes.
+   - await pauses the execution of the function until the Future is completed.
+
+   - This is the key benefit of async programming. While waiting for one operation, Dart's event loop can handle other work, keeping your app responsive.

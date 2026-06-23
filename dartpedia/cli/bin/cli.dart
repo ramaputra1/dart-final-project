@@ -18,12 +18,13 @@ void main(List<String> arguments) {
     //The $version syntax is called string interpolation. 
     //It lets you embed the value of the variable directly into a string by prefixing the variable name with a $ sign.
     print('Dartpedia CLI version $version');
-  } else if (arguments.first == 'search') {  //dart bin/cli.dart search <ARTICLE-TITLE>
+  } else if (arguments.first == 'wikipedia') {  //dart bin/cli.dart search <ARTICLE-TITLE>
+    //Pass all arguments *after* 'wikipedia' to searchWikipedia
     //Use arguments.sublist(1) to get all arguments starting from the second one. If no arguments are provided after search, pass null to searchWikipedia.
     final inputArgs = arguments.length > 1 ? arguments.sublist(1) : null;
     searchWikipedia(inputArgs);
   } else{
-    printUsage();  // Catch-all for any unrecognized command.
+    printUsage();  // Catch all for any unrecognized command.
   }
 }
 //Learn: List manipulation, null checks, and string interpolation.
@@ -65,7 +66,7 @@ Future<String> getWikipediaArticle(String articleTitle) async {
 //The Uri represents the endpoint of the Wikipedia API that you'll be calling to get an article summary.
   final url = Uri.https(
     'en.wikipedia.org', //Wikipedia API domain
-    '/api/reat_v1/page/summary/$articleTitle', //API path for article summary
+    '/api/rest_v1/page/summary/$articleTitle', //API path for article summary
   );
   final response = await http.get(url);  //Make the HTTP request
 
